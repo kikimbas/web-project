@@ -18,9 +18,7 @@
                 <section class="mb-5">
                     <h2 class="fw-bolder">Список контактов пользователя</h2>
                     @foreach($contacts as $contact)
-                        @if($filledContacts[$contact->id]->getAttributes()['is_private'] !== 1)
                         <p class="fs-5 mb-4"><span>{{$contact->name}}:</span> {{  $filledContacts[$contact->id]->getAttributes()['value'] }}</p>
-                        @endif
                     @endforeach
                     <p class="fs-5 mb-4"><a href="{{ route('edit')  }}">Редактировать</a></p>
                     <p class="fs-5 mb-4"><a href="{{ route('add')  }}">Добавить</a></p>
