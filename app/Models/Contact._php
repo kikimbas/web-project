@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+
+class Contact extends Model
+{
+    use HasFactory;
+
+    public $timestamps = false;
+
+    public function create(Request $request) {
+        $user = auth()->user();
+
+        $contact = Contact::where('user_id', $user->id)->first();
+
+        if(!$contact) {
+            $contact = new Contact();
+            $contact->user_id = $user->id;
+        }
+
+        $contact->phone = $request->input('phone');
+        $contact->email = $request->input('email');
+        $contact->save();
+    }
+
+    public function users() {
+        return $this->belongsTo(User::class);
+    }
+
+//    public function getTableColumns() {
+//        $columns  = \Schema::getColumnListing('contacts');
+//    }
+}
